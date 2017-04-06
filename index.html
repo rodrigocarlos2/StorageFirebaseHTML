@@ -1,0 +1,56 @@
+
+
+ <form id="form">
+
+        <label for="form__name"> Name </label>
+        <input type="text" id="form__name" name="name">
+        <br>
+
+        <label for="form__age"> Age </label>
+        <input type="text" id="form__age" name="age">
+        <br>
+        <br>
+
+        <input type="submit" value="Send">
+        
+  </form>
+
+<script src="https://cdn.firebase.com/js/client/2.0.6/firebase.js"></script>
+<script src="https://code.jquery.com/jquery-1.11.2.js"></script>
+
+<script>
+        
+        var submissionsRef = new Firebase('https://agenda-c29a3.firebaseio.com/submissions');
+
+        var $form = $('#form');
+
+        $form.submit(function(event) {
+            event.preventDefault();
+
+            // Firebase generates random id when pushed
+            var data = $form.serializeArray();
+            submissionsRef.push(data, function(err) {
+                if (err) {
+                    window.alert('Error when submitting data: ' + err.message);
+                }
+            });
+
+            window.alert('Submitted answers: \n' + JSON.stringify(data, null, 2));
+            $form[0].reset();
+        });
+
+</script>
+
+<script src="https://www.gstatic.com/firebasejs/3.7.5/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyCLGLRWGeH80kPddn963JHCTZewq71BMDU",
+    authDomain: "agenda-c29a3.firebaseapp.com",
+    databaseURL: "https://agenda-c29a3.firebaseio.com",
+    projectId: "agenda-c29a3",
+    storageBucket: "agenda-c29a3.appspot.com",
+    messagingSenderId: "541325317299"
+  };
+  firebase.initializeApp(config);
+</script>
